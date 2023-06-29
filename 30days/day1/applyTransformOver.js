@@ -29,3 +29,15 @@ Constraints:
    fn returns a number
 */
 
+var map = function(arr, fn) {
+   const res = new Array(arr.length)
+   for (const i in arr) {
+      res[i] = fn(arr[i], Number(i))
+   }
+   return res
+}
+
+const arr = [1, 2, 3]
+function fc(n) { return n + 1; }
+const newArray = map(arr, fc)
+console.log(newArray)
