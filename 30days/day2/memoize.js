@@ -56,3 +56,44 @@ Constraints:
    input function is sum, fib, or factorial
  */
 
+function memoize(fn) {
+   const cache = {}
+   return function (...args) {
+      const key = JSON.stringify(args)
+      if (key in cache) {
+         return cache[key]
+      }
+      cache[key] = fn(...args)
+      return cache[key]
+   }
+}
+
+
+
+let callCount = 0;
+const method = "fib"
+const memoizedFn = memoize(function (a, b) {
+   let result = 0
+   callCount += 1;
+   if (method == 'sum') result = a + b
+   if (method == 'factorial ') result = factorial(a)
+   if (method == 'fib') result = fibonacci(a)
+   return result;
+})
+
+function factorial(n) {
+   if (n <= 1) {
+      return 1;
+   }
+   return n * factorial(n - 1);
+}
+
+function fibonacci(n) {
+   if (n <= 1) {
+      return n;
+   }
+   return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+let tmp = memoizedFn(6) // 5
+console.log(tmp) // 1 
